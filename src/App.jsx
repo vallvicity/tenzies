@@ -8,6 +8,7 @@ function App() {
 
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [count, setCount] = useState(0)
 
   
   useEffect(() => {
@@ -37,6 +38,7 @@ function App() {
 
   function rollDice() {
     if(!tenzies) {
+      setCount(oldCount => oldCount + 1)
       setDice(oldDice => oldDice.map(die => {
         return die.isHeld
           ? die
@@ -45,6 +47,7 @@ function App() {
     } else {
       setTenzies(false)
       setDice(allNewDice())
+      setCount(0)
     }
   }
 
@@ -73,6 +76,7 @@ function App() {
       <button className="rollBtn" onClick={rollDice}>
         {tenzies ? "New Game" : "Roll"}
       </button>
+      <h4>Number of turns: {count}</h4>
     </main>
   )
 }
